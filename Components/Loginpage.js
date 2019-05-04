@@ -3,13 +3,24 @@ import logo from './logo.svg';
 import './App.css';
 import { PracticeClass } from './Components/PracticeClass';
 
-function App() {
+
+class Loginpage extends React.Component
+{
+render()
+{
+  
+  return(
+  function App() {
   return (
     <div className="App">
       <PracticeClass></PracticeClass>
     </div>
   );
 }
+  )
 
+}
 
-// export default App;
+}
+
+ export default Loginpage;

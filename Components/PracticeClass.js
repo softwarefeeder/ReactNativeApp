@@ -1,8 +1,9 @@
+
 import React from 'react';
 import {View,Text} from 'react-native'
 
  
-export class PracticeClass extends React.Component
+export default class PracticeClass extends React.Component
 {
 
     constructor(props)
