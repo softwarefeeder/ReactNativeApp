@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,TextInput,Button} from 'react-native';
+import {Platform, StyleSheet, Text, View,TextInput,Button,Switch,Image} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,7 +18,15 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+
+   state ={
+     switchValue:false
+   };
+
+  
   render() {
+
+    
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
@@ -27,6 +35,10 @@ export default class App extends Component<Props> {
         title="Click Me!"
         style={{width: 100, height: 100, backgroundColor: 'skyblue'}}
         />
+        <Switch value={this.state.switchValue}
+        onValueChange ={(switchValue)=> this.setState({switchValue})}></Switch>
+       
+
       </View>
     );
   }
@@ -43,6 +55,7 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
+    backgroundColor:"FFFFFFF",
     margin: 10,
   },
   instructions: {
