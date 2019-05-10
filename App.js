@@ -25,77 +25,16 @@ export default class App extends Component<Props> {
   constructor(Props)
   {
     super(Props);
-    this.state={fname:'Enter UserName'};
-    this.state={fphone:'Enter PhoneNumber'};
+    this.state={
+      fname:'',
+      fphone:''
+    };
 
   }
-
-   update(event)
-   {
-     this.setState
-     (
-       {
-         fname:event.target.value
-        }
-     )
-   }
-
-   updatePhoneNumber(event)
-   {
-    this.setState
-    (
-      {
-        fphone:event.target.value
-       }
-    )
-   }
-
-
-   // submit button functionality
-    search()
-    {
-      
-      var promise =  fetch('http://10.0.2.2:4001/users')
-      promise.then(response => response.json()).then(users => console.log(JSON.stringify(users)))
-     
-    }
-
-    //save function 
-    save()
-    {
-
-      var newPerson = {
-        emailAddresses: [{
-          label: "work",
-          email: "ramasamy.vcp@gmail.com",
-        }],
-        familyName: "M",
-        givenName: "Ramasamy",
-        phoneNumbers: [{
-          id:"366",
-          label: "work",
-          number: "33333333333",
-        }],
-      }
-      
-      Contacts.addContact(newPerson, (err) => {
-        if (err) throw err;
-        // save successful
-        alert('Added successfully');
-
-      })
-
-    //  fetch('http://10.0.2.2:4001/users',{
-    //     method:'POST',
-    //     body:JSON.stringify(this.create),
-    //     headers:{ 'content-type':'application/json' }
-    // })
-
-  }
-
+  
 
   //React native contact check
-  permissioncheck()
+  addNewContactMethod()
   {
     PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
@@ -104,6 +43,27 @@ export default class App extends Component<Props> {
         'message': 'This app would like to view your contacts.'
       }
     ).then(() => {
+
+      var newPerson = {
+        emailAddresses: [{
+          label: "work",
+          email: "ramasamy.vcp@gmail.com",
+        }],
+        familyName: "M",
+        givenName: this.state.fname,
+        phoneNumbers: [{
+          id:"366",
+          label: "work",
+          number:this.state.fphone,
+        }],
+      }
+      Contacts.addContact(newPerson, (err) => {
+        if (err) throw err;
+        // save successful
+        alert('Added successfully');
+
+      })
+
       Contacts.getAll((err, contacts) => {
         if (err === 'denied'){
          console.log(JSON.stringify(contacts));
@@ -116,17 +76,63 @@ export default class App extends Component<Props> {
     })
    }
 
+    // submit button functionality
+    search()
+    {
+      
+      var promise =  fetch('http://10.0.2.2:4001/users')
+      promise.then(response => response.json()).then(users => console.log(JSON.stringify(users)))
+     
+    }
+
+    //save function 
+    save()
+    {
+      fetch('http://10.0.2.2:4001/users',{
+         method:'POST',
+         body:JSON.stringify(this.create),
+      headers:{ 'content-type':'application/json' }
+     })
+
+  }
+
+
 
   
   render() {
 
     return (
       <View style={styles.container}>
-        <TextInput  value ={this.state.fname}style={styles.input}  onChange={this.update = this.update.bind(this)}></TextInput>
-        <TextInput value ={this.state.fphone}style={styles.input}  updatePhoneNumber={this.update = this.update.bind(this)}></TextInput>
-        <Button title="Login" onPress={this.search= this.search.bind(this)} backgroundColor="#F5FCFF" />  
-        <Button title="Save" onPress={this.save= this.save.bind(this)} backgroundColor="#F5FCFF" />  
-        <Button title="PermissionCheck" onPress={this.permissioncheck= this.permissioncheck.bind(this)} backgroundColor="#F5FCFF" />  
+        <TextInput fieldKey="fname" 
+        value ={this.state.fname}
+        style={styles.input}  
+        placeholder="Enter UserName" 
+        onChangeText={(fname) => this.setState({fname})}
+        />
+
+        
+        <TextInput fieldKey="fphone" 
+        value ={this.state.fphone}
+        style={styles.input}  
+        placeholder="Enter PhoneNumber" 
+        keyboardType="numeric"
+        onChangeText={(fphone) => this.setState({fphone})}
+        />
+
+        <Button 
+        title="Login" 
+        onPress={this.search= this.search.bind(this)} 
+        backgroundColor="#F5FCFF" />  
+
+        <Button
+         title="Save" 
+        onPress={this.save= this.save.bind(this)} 
+        backgroundColor="#F5FCFF" />  
+
+        <Button 
+        title="addNewContactMethod"
+        onPress={this.addNewContactMethod= this.addNewContactMethod.bind(this)} 
+         backgroundColor="#F5FCFF" />  
        
       </View>
 
@@ -140,10 +146,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    marginBottom:10,
     height:20
   },
   input: {
-    width:200 , height:50,borderColor:"#b39afd" , borderWidth:2, margin:5,
+    width:200 , height:50,borderColor:"#b39afd" , borderWidth:2, margin:20,
     padding:5
   },
   welcome: {
