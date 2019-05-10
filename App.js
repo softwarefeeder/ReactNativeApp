@@ -25,14 +25,11 @@ export default class App extends Component<Props> {
   constructor(Props)
   {
     super(Props);
-    this.state={fname:'Enter UserName'};
+    this.state={fname:'Enter User Name'};
+    this.state={fphone:'Enter Password'};
+
     
   }
-
-   state ={
-     switchValue:false
-   };
-
 
    update(event)
    {
@@ -40,16 +37,25 @@ export default class App extends Component<Props> {
      (
        {
          fname:event.target.value
-       }
+        }
      )
+   }
 
+   updatePhoneNumber(event)
+   {
+    this.setState
+    (
+      {
+        fphone:event.target.value
+       }
+    )
    }
 
 
    // submit button functionality
     search()
     {
-      alert('sumbittted successfully');
+      
       var promise =  fetch('http://10.0.2.2:4001/users')
       promise.then(response => response.json()).then(users => console.log(JSON.stringify(users)))
      
@@ -58,12 +64,34 @@ export default class App extends Component<Props> {
     //save function 
     save()
     {
-      alert('sumbittted successfully');
-     fetch('http://10.0.2.2:4001/users',{
-        method:'POST',
-        body:JSON.stringify(this.create),
-        headers:{ 'content-type':'application/json' }
-    })
+
+      var newPerson = {
+        emailAddresses: [{
+          label: "work",
+          email: "ramasamy.vcp@gmail.com",
+        }],
+        familyName: "M",
+        givenName: "Ramasamy",
+        phoneNumbers: [{
+          id:"366",
+          label: "work",
+          number: "33333333333",
+        }],
+      }
+      
+      Contacts.addContact(newPerson, (err) => {
+        if (err) throw err;
+        // save successful
+        alert('Added successfully');
+
+      })
+
+    //  fetch('http://10.0.2.2:4001/users',{
+    //     method:'POST',
+    //     body:JSON.stringify(this.create),
+    //     headers:{ 'content-type':'application/json' }
+    // })
+
   }
 
 
@@ -71,7 +99,7 @@ export default class App extends Component<Props> {
   permissioncheck()
   {
     PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+      PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
       {
         'title': 'Contacts',
         'message': 'This app would like to view your contacts.'
@@ -79,11 +107,11 @@ export default class App extends Component<Props> {
     ).then(() => {
       Contacts.getAll((err, contacts) => {
         if (err === 'denied'){
-          alert.log(JSON.stringify(contacts))
+         console.log(JSON.stringify(contacts));
           // error
         } else {
           // contacts returned in Array
-         alert.log(JSON.stringify(contacts));
+         console.log(JSON.stringify(contacts));
         }
       })
     })
@@ -96,7 +124,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <TextInput  value ={this.state.fname}style={styles.input}  onChange={this.update = this.update.bind(this)}></TextInput>
-        <TextInput style={styles.input}></TextInput>
+        <TextInput value ={this.state.fphone}style={styles.input}  updatePhoneNumber={this.update = this.update.bind(this)}></TextInput>
         <Button title="Login" onPress={this.search= this.search.bind(this)} backgroundColor="#F5FCFF" />  
         <Button title="Save" onPress={this.save= this.save.bind(this)} backgroundColor="#F5FCFF" />  
         <Button title="PermissionCheck" onPress={this.permissioncheck= this.permissioncheck.bind(this)} backgroundColor="#F5FCFF" />  
