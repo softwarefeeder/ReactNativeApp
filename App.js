@@ -101,7 +101,8 @@ export default class App extends Component<Props> {
 
     return (
       <View style={styles.container}>
-        <TextInput fieldKey="fname" 
+        <TextInput
+        fieldKey="fname" 
         value ={this.state.fname}
         style={styles.input}  
         placeholder="Enter UserName" 
@@ -110,7 +111,8 @@ export default class App extends Component<Props> {
         />
 
         
-        <TextInput fieldKey="fphone" 
+        <TextInput 
+        fieldKey="fphone" 
         value ={this.state.fphone}
         style={styles.input}  
         placeholder="Enter PhoneNumber" 
@@ -123,15 +125,18 @@ export default class App extends Component<Props> {
       
         title="Login" 
         onPress={this.search= this.search.bind(this)} 
+        style={styles.button_style}
         backgroundColor="#F5FCFF" />  
 
         <Button
          title="Save" 
+         style={styles.button_style}
         onPress={this.save= this.save.bind(this)} 
         backgroundColor="#F5FCFF" />  
 
         <Button 
         title="addNewContactMethod"
+        style={styles.button_style}
         onPress={this.addNewContactMethod= this.addNewContactMethod.bind(this)} 
          backgroundColor="#F5FCFF" />  
        
@@ -173,5 +178,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     color: '#fff'
+  },
+  button_style: {
+    marginBottom: 10,
+    padding: 10,
   }
 });
