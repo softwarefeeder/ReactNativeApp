@@ -96,8 +96,6 @@ export default class App extends Component<Props> {
 
   }
 
-
-
   
   render() {
 
@@ -107,6 +105,7 @@ export default class App extends Component<Props> {
         value ={this.state.fname}
         style={styles.input}  
         placeholder="Enter UserName" 
+        maxLength={15}
         onChangeText={(fname) => this.setState({fname})}
         />
 
@@ -116,10 +115,12 @@ export default class App extends Component<Props> {
         style={styles.input}  
         placeholder="Enter PhoneNumber" 
         keyboardType="numeric"
+        maxLength={10}
         onChangeText={(fphone) => this.setState({fphone})}
         />
 
         <Button 
+      
         title="Login" 
         onPress={this.search= this.search.bind(this)} 
         backgroundColor="#F5FCFF" />  
@@ -150,7 +151,10 @@ const styles = StyleSheet.create({
     height:20
   },
   input: {
-    width:200 , height:50,borderColor:"#b39afd" , borderWidth:2, margin:20,
+    width:200,
+    height:50,
+    borderColor:"#b39afd" ,
+     borderWidth:2, margin:20,
     padding:5
   },
   welcome: {
