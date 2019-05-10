@@ -25,10 +25,9 @@ export default class App extends Component<Props> {
   constructor(Props)
   {
     super(Props);
-    this.state={fname:'Enter User Name'};
-    this.state={fphone:'Enter Password'};
+    this.state={fname:'Enter UserName'};
+    this.state={fphone:'Enter PhoneNumber'};
 
-    
   }
 
    update(event)
