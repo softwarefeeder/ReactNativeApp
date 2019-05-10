@@ -159,7 +159,8 @@ const styles = StyleSheet.create({
     width:200,
     height:50,
     borderColor:"#b39afd" ,
-     borderWidth:2, margin:20,
+     borderWidth:2, 
+     margin:20,
     padding:5
   },
   welcome: {
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
   },
   button_style: {
     marginBottom: 10,
+    borderWidth:2, 
     padding: 10,
   }
 });
